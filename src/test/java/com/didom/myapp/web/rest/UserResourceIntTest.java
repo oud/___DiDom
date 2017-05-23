@@ -3,6 +3,7 @@ package com.didom.myapp.web.rest;
 import com.didom.myapp.DiDomApp;
 import com.didom.myapp.domain.Authority;
 import com.didom.myapp.domain.User;
+import com.didom.myapp.domain.enumeration.TypeUser;
 import com.didom.myapp.repository.UserRepository;
 import com.didom.myapp.repository.search.UserSearchRepository;
 import com.didom.myapp.security.AuthoritiesConstants;
@@ -163,7 +164,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         restUserMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,7 +205,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc.perform(post("/api/users")
@@ -240,7 +243,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -277,7 +281,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -363,7 +368,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -408,7 +414,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -465,7 +472,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            TypeUser.HIRE);
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -511,7 +519,7 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,TypeUser.HIRE);
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)

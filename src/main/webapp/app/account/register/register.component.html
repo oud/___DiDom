@@ -26,6 +26,13 @@
         <div class="col-md-4 offset-md-2">
             <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="diDomApp.userInfo.userType" for="field_userType">User Type</label>
+                    <select class="form-control" name="userType" [(ngModel)]="registerAccount.userType" id="userType"  required>
+                        <option value="HIRE" jhiTranslate="diDomApp.TypeUser.HIRE">HIRE</option>
+                        <option value="SEEKER" jhiTranslate="diDomApp.TypeUser.SEEKER">SEEKER</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="login" jhiTranslate="global.form.username">Username</label>
                     <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="{{'global.form.username.placeholder' | translate}}"
                             required minlength="1" maxlength="50" pattern="^[_'.@A-Za-z0-9-]*$">
