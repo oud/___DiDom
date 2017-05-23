@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "userInfo"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "address",
+            "otherEntityName": "location",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "userType",
+            "fieldType": "TypeUser",
+            "fieldValues": "HIRE,SEEKER",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170523140127",
+    "entityTableName": "user_info",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

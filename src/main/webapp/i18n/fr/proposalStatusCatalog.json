@@ -1,0 +1,24 @@
+{
+    "diDomApp": {
+        "proposalStatusCatalog" : {
+            "home": {
+                "title": "ProposalStatusCatalogs",
+                "createLabel": "Créer un nouveau Proposal Status Catalog",
+                "createOrEditLabel": "Créer ou éditer un Proposal Status Catalog",
+                "search": "Recherche pour Proposal Status Catalog"
+            },
+            "created": "Un nouveau Proposal Status Catalog a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Proposal Status Catalog avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Proposal Status Catalog avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Proposal Status Catalog {{ id }} ?"
+            },
+            "detail": {
+                "title": "Proposal Status Catalog"
+            },
+            "statusName": "Status Name",
+            "proposal": "Proposal",
+            "message": "Message"
+        }
+    }
+}

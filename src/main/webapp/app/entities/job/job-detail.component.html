@@ -1,0 +1,59 @@
+
+<div *ngIf="job">
+    <h2><span jhiTranslate="diDomApp.job.detail.title">Job</span> {{job.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="diDomApp.job.title">Title</span></dt>
+        <dd>
+            <span>{{job.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.description">Description</span></dt>
+        <dd>
+            <span>{{job.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.paymentAmont">Payment Amont</span></dt>
+        <dd>
+            <span>{{job.paymentAmont}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.complexity">Complexity</span></dt>
+        <dd>
+            <span jhiTranslate="{{'diDomApp.Complexity.' + job.complexity}}">{{job.complexity}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.mainSkill">Main Skill</span></dt>
+        <dd>
+            <div *ngIf="job.mainSkill">
+                <a [routerLink]="['/skill', job.mainSkill?.id]">{{job.mainSkill?.skillName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.paymentType">Payment Type</span></dt>
+        <dd>
+            <div *ngIf="job.paymentType">
+                <a [routerLink]="['/payment-type', job.paymentType?.id]">{{job.paymentType?.typeName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.duration">Duration</span></dt>
+        <dd>
+            <div *ngIf="job.duration">
+                <a [routerLink]="['/duration', job.duration?.id]">{{job.duration?.duration}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.job.user">User</span></dt>
+        <dd>
+            {{job.user?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'job/'+ job.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

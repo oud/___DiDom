@@ -1,0 +1,24 @@
+{
+    "diDomApp": {
+        "paymentType" : {
+            "home": {
+                "title": "PaymentTypes",
+                "createLabel": "Créer un nouveau Payment Type",
+                "createOrEditLabel": "Créer ou éditer un Payment Type",
+                "search": "Recherche pour Payment Type"
+            },
+            "created": "Un nouveau Payment Type a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Payment Type avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Payment Type avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Payment Type {{ id }} ?"
+            },
+            "detail": {
+                "title": "Payment Type"
+            },
+            "typeName": "Type Name",
+            "job": "Job",
+            "proposal": "Proposal"
+        }
+    }
+}

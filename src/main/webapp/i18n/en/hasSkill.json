@@ -1,0 +1,23 @@
+{
+    "diDomApp": {
+        "hasSkill" : {
+            "home": {
+                "title": "Has Skills",
+                "createLabel": "Create a new Has Skill",
+                "createOrEditLabel": "Create or edit a Has Skill",
+                "search": "Search for Has Skill"
+            },
+            "created": "A new Has Skill is created with identifier {{ param }}",
+            "updated": "A Has Skill is updated with identifier {{ param }}",
+            "deleted": "A Has Skill is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Has Skill {{ id }}?"
+            },
+            "detail": {
+                "title": "Has Skill"
+            },
+            "user": "User",
+            "skill": "Skill"
+        }
+    }
+}

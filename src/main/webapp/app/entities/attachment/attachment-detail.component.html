@@ -1,0 +1,31 @@
+
+<div *ngIf="attachment">
+    <h2><span jhiTranslate="diDomApp.attachment.detail.title">Attachment</span> {{attachment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="diDomApp.attachment.attachmentLink">Attachment Link</span></dt>
+        <dd>
+            <span>{{attachment.attachmentLink}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.attachment.message">Message</span></dt>
+        <dd>
+            <div *ngIf="attachment.message">
+                <a [routerLink]="['/message', attachment.message?.id]">{{attachment.message?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'attachment/'+ attachment.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

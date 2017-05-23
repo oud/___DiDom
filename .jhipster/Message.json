@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "proposal",
+            "otherEntityName": "proposal",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "proposalStatusCatalog",
+            "otherEntityName": "proposalStatusCatalog",
+            "otherEntityField": "statusName"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "attachment",
+            "otherEntityName": "attachment",
+            "otherEntityRelationshipName": "message"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "messageTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "messageText",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170523140137",
+    "entityTableName": "message",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

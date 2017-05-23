@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "skill",
+            "otherEntityName": "skill",
+            "otherEntityField": "skillName"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170523140130",
+    "entityTableName": "has_skill",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

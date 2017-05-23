@@ -1,0 +1,101 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myJobLabel" jhiTranslate="diDomApp.job.home.createOrEditLabel">Create or edit a Job</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!job.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="job.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.job.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                [(ngModel)]="job.title"
+            required />
+            <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.job.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="job.description"
+            required />
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.job.paymentAmont" for="field_paymentAmont">Payment Amont</label>
+            <input type="number" class="form-control" name="paymentAmont" id="field_paymentAmont"
+                [(ngModel)]="job.paymentAmont"
+            required />
+            <div [hidden]="!(editForm.controls.paymentAmont?.dirty && editForm.controls.paymentAmont?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paymentAmont?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.paymentAmont?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.job.complexity" for="field_complexity">Complexity</label>
+            <select class="form-control" name="complexity" [(ngModel)]="job.complexity" id="field_complexity" >
+                <option value="EASY" jhiTranslate="diDomApp.Complexity.EASY">EASY</option>
+                <option value="INTERMEDIATE" jhiTranslate="diDomApp.Complexity.INTERMEDIATE">INTERMEDIATE</option>
+                <option value="HARD" jhiTranslate="diDomApp.Complexity.HARD">HARD</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.job.mainSkill" for="field_mainSkill">Main Skill</label>
+            <select class="form-control" id="field_mainSkill" name="mainSkill" [(ngModel)]="job.mainSkill" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="skillOption.id === job.mainSkill?.id ? job.mainSkill : skillOption" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.skillName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.job.paymentType" for="field_paymentType">Payment Type</label>
+            <select class="form-control" id="field_paymentType" name="paymentType" [(ngModel)]="job.paymentType" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="paymentTypeOption.id === job.paymentType?.id ? job.paymentType : paymentTypeOption" *ngFor="let paymentTypeOption of paymenttypes; trackBy: trackPaymentTypeById">{{paymentTypeOption.typeName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.job.duration" for="field_duration">Duration</label>
+            <select class="form-control" id="field_duration" name="duration" [(ngModel)]="job.duration" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="durationOption.id === job.duration?.id ? job.duration : durationOption" *ngFor="let durationOption of durations; trackBy: trackDurationById">{{durationOption.duration}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.job.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="job.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === job.user?.id ? job.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

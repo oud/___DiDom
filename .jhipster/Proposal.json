@@ -1,0 +1,72 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "job",
+            "otherEntityName": "job",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "paymentType",
+            "otherEntityName": "paymentType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "currentProposalStatus",
+            "otherEntityName": "proposalStatusCatalog",
+            "otherEntityField": "statusName"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "message",
+            "otherEntityName": "message",
+            "otherEntityRelationshipName": "proposal"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "proposalTime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "paymentAmount",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "clientGrade",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "clientComment",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "freelanceGrade",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "freelanceComment",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170523140136",
+    "entityTableName": "proposal",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass"
+}

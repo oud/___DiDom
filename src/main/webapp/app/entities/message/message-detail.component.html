@@ -1,0 +1,47 @@
+
+<div *ngIf="message">
+    <h2><span jhiTranslate="diDomApp.message.detail.title">Message</span> {{message.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="diDomApp.message.messageTime">Message Time</span></dt>
+        <dd>
+            <span>{{message.messageTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.message.messageText">Message Text</span></dt>
+        <dd>
+            <span>{{message.messageText}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.message.proposal">Proposal</span></dt>
+        <dd>
+            <div *ngIf="message.proposal">
+                <a [routerLink]="['/proposal', message.proposal?.id]">{{message.proposal?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.message.proposalStatusCatalog">Proposal Status Catalog</span></dt>
+        <dd>
+            <div *ngIf="message.proposalStatusCatalog">
+                <a [routerLink]="['/proposal-status-catalog', message.proposalStatusCatalog?.id]">{{message.proposalStatusCatalog?.statusName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.message.user">User</span></dt>
+        <dd>
+            <span *ngFor="let user of message.users; let last = last">
+                {{user.login}}{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

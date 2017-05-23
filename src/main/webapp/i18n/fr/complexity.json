@@ -1,0 +1,10 @@
+{
+    "diDomApp": {
+        "Complexity" : {
+            "null": "",
+            "EASY": "EASY",
+            "INTERMEDIATE": "INTERMEDIATE",
+            "HARD": "HARD"
+        }
+    }
+}

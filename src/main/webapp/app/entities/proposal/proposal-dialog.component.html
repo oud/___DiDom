@@ -1,0 +1,110 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myProposalLabel" jhiTranslate="diDomApp.proposal.home.createOrEditLabel">Create or edit a Proposal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!proposal.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="proposal.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.proposal.proposalTime" for="field_proposalTime">Proposal Time</label>
+            <div class="d-flex">
+                <input id="field_proposalTime" type="datetime-local" class="form-control" name="proposalTime" [(ngModel)]="proposal.proposalTime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.proposalTime?.dirty && editForm.controls.proposalTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.proposalTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.proposalTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.proposal.paymentAmount" for="field_paymentAmount">Payment Amount</label>
+            <input type="number" class="form-control" name="paymentAmount" id="field_paymentAmount"
+                [(ngModel)]="proposal.paymentAmount"
+            required />
+            <div [hidden]="!(editForm.controls.paymentAmount?.dirty && editForm.controls.paymentAmount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paymentAmount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.paymentAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.proposal.clientGrade" for="field_clientGrade">Client Grade</label>
+            <input type="number" class="form-control" name="clientGrade" id="field_clientGrade"
+                [(ngModel)]="proposal.clientGrade"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.proposal.clientComment" for="field_clientComment">Client Comment</label>
+            <input type="text" class="form-control" name="clientComment" id="field_clientComment"
+                [(ngModel)]="proposal.clientComment"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.proposal.freelanceGrade" for="field_freelanceGrade">Freelance Grade</label>
+            <input type="number" class="form-control" name="freelanceGrade" id="field_freelanceGrade"
+                [(ngModel)]="proposal.freelanceGrade"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="diDomApp.proposal.freelanceComment" for="field_freelanceComment">Freelance Comment</label>
+            <input type="text" class="form-control" name="freelanceComment" id="field_freelanceComment"
+                [(ngModel)]="proposal.freelanceComment"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.proposal.job" for="field_job">Job</label>
+            <select class="form-control" id="field_job" name="job" [(ngModel)]="proposal.job" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="jobOption.id === proposal.job?.id ? proposal.job : jobOption" *ngFor="let jobOption of jobs; trackBy: trackJobById">{{jobOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.proposal.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="proposal.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === proposal.user?.id ? proposal.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.proposal.paymentType" for="field_paymentType">Payment Type</label>
+            <select class="form-control" id="field_paymentType" name="paymentType" [(ngModel)]="proposal.paymentType" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="paymentTypeOption.id === proposal.paymentType?.id ? proposal.paymentType : paymentTypeOption" *ngFor="let paymentTypeOption of paymenttypes; trackBy: trackPaymentTypeById">{{paymentTypeOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="diDomApp.proposal.currentProposalStatus" for="field_currentProposalStatus">Current Proposal Status</label>
+            <select class="form-control" id="field_currentProposalStatus" name="currentProposalStatus" [(ngModel)]="proposal.currentProposalStatus" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="proposalStatusCatalogOption.id === proposal.currentProposalStatus?.id ? proposal.currentProposalStatus : proposalStatusCatalogOption" *ngFor="let proposalStatusCatalogOption of proposalstatuscatalogs; trackBy: trackProposalStatusCatalogById">{{proposalStatusCatalogOption.statusName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

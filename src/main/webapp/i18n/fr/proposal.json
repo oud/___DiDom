@@ -1,0 +1,32 @@
+{
+    "diDomApp": {
+        "proposal" : {
+            "home": {
+                "title": "Proposals",
+                "createLabel": "Créer un nouveau Proposal",
+                "createOrEditLabel": "Créer ou éditer un Proposal",
+                "search": "Recherche pour Proposal"
+            },
+            "created": "Un nouveau Proposal a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Proposal avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Proposal avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Proposal {{ id }} ?"
+            },
+            "detail": {
+                "title": "Proposal"
+            },
+            "proposalTime": "Proposal Time",
+            "paymentAmount": "Payment Amount",
+            "clientGrade": "Client Grade",
+            "clientComment": "Client Comment",
+            "freelanceGrade": "Freelance Grade",
+            "freelanceComment": "Freelance Comment",
+            "job": "Job",
+            "user": "User",
+            "paymentType": "Payment Type",
+            "currentProposalStatus": "Current Proposal Status",
+            "message": "Message"
+        }
+    }
+}

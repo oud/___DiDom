@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "job",
+            "otherEntityName": "job",
+            "otherEntityRelationshipName": "duration"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "duration",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170523140132",
+    "entityTableName": "duration",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

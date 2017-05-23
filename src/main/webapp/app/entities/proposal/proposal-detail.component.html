@@ -1,0 +1,67 @@
+
+<div *ngIf="proposal">
+    <h2><span jhiTranslate="diDomApp.proposal.detail.title">Proposal</span> {{proposal.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="diDomApp.proposal.proposalTime">Proposal Time</span></dt>
+        <dd>
+            <span>{{proposal.proposalTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.paymentAmount">Payment Amount</span></dt>
+        <dd>
+            <span>{{proposal.paymentAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.clientGrade">Client Grade</span></dt>
+        <dd>
+            <span>{{proposal.clientGrade}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.clientComment">Client Comment</span></dt>
+        <dd>
+            <span>{{proposal.clientComment}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.freelanceGrade">Freelance Grade</span></dt>
+        <dd>
+            <span>{{proposal.freelanceGrade}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.freelanceComment">Freelance Comment</span></dt>
+        <dd>
+            <span>{{proposal.freelanceComment}}</span>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.job">Job</span></dt>
+        <dd>
+            <div *ngIf="proposal.job">
+                <a [routerLink]="['/job', proposal.job?.id]">{{proposal.job?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.user">User</span></dt>
+        <dd>
+            {{proposal.user?.login}}
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.paymentType">Payment Type</span></dt>
+        <dd>
+            <div *ngIf="proposal.paymentType">
+                <a [routerLink]="['/payment-type', proposal.paymentType?.id]">{{proposal.paymentType?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="diDomApp.proposal.currentProposalStatus">Current Proposal Status</span></dt>
+        <dd>
+            <div *ngIf="proposal.currentProposalStatus">
+                <a [routerLink]="['/proposal-status-catalog', proposal.currentProposalStatus?.id]">{{proposal.currentProposalStatus?.statusName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'proposal/'+ proposal.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

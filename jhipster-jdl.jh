@@ -1,0 +1,129 @@
+entity UserInfo {
+	userType TypeUser required 
+}
+
+relationship OneToOne {
+	UserInfo{user(login)} to User    
+}
+
+
+entity PaymentType {
+	typeName String required 
+}
+
+entity Skill {
+	skillName String required
+}
+
+entity HasSkill {
+}
+
+relationship ManyToOne {
+	Job{mainSkill(skillName)} to Skill{job}
+}
+
+
+relationship ManyToOne {
+	HasSkill{user(login)} to User
+	HasSkill{skill(skillName)} to Skill
+}
+
+relationship ManyToOne {
+	Job{paymentType(typeName)} to PaymentType{job}
+}
+
+entity Job {
+	title String required,
+    description String required ,
+    paymentAmont BigDecimal required ,
+    complexity Complexity
+}
+
+entity Duration {
+	duration String required
+}
+
+relationship ManyToOne {
+	Job{duration(duration)} to Duration{job}
+}
+
+relationship ManyToOne {
+	Job{user(login)} to User
+}
+
+
+enum Complexity {
+	EASY, INTERMEDIATE, HARD
+}
+
+enum TypeUser {
+	HIRE, SEEKER
+}
+
+
+
+entity Location {
+	streetAddress String,
+	postalCode String required,
+	city String,
+	stateProvince String
+}
+
+entity Country {
+	countryName String
+}
+
+relationship ManyToOne {
+	UserInfo{address} to Location
+}
+
+relationship ManyToOne {
+	Location{country(countryName)} to Country
+}
+
+entity ProposalStatusCatalog {
+	statusName String
+}
+
+entity Proposal {
+    proposalTime ZonedDateTime required ,
+    paymentAmount BigDecimal required ,
+    clientGrade Integer,
+    clientComment String,
+    freelanceGrade Integer,
+    freelanceComment String
+}
+
+
+entity Message {
+    messageTime ZonedDateTime,
+    messageText String    
+}
+
+entity Attachment {
+	attachmentLink String
+}
+
+relationship ManyToOne {
+
+    Proposal{job} to Job{proposal},
+    Proposal{User(login)} to User{proposal},
+    Proposal{paymentType} to PaymentType{proposal},
+    Proposal{currentProposalStatus(statusName)} to ProposalStatusCatalog{proposal},
+    Message{proposal} to Proposal{message},
+    Message{proposalStatusCatalog(statusName)} to ProposalStatusCatalog{message},
+    Attachment{message} to Message{attachment}    
+}
+
+relationship ManyToMany {
+    Message{User(login)} to User	
+}
+
+// Set pagination options
+paginate Job, Proposal, Skill with infinite-scroll
+
+
+// Set service options to all except few
+service Job, Proposal, Skill with serviceClass
+
+search Job, Skill with elasticsearch

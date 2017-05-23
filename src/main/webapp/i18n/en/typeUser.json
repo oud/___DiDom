@@ -1,0 +1,9 @@
+{
+    "diDomApp": {
+        "TypeUser" : {
+            "null": "",
+            "HIRE": "HIRE",
+            "SEEKER": "SEEKER"
+        }
+    }
+}
