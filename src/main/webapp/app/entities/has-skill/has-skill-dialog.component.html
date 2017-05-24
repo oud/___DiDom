@@ -13,13 +13,13 @@
                    [(ngModel)]="hasSkill.id" readonly />
         </div>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <label jhiTranslate="diDomApp.hasSkill.user" for="field_user">User</label>
             <select class="form-control" id="field_user" name="user" [(ngModel)]="hasSkill.user" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="userOption.id === hasSkill.user?.id ? hasSkill.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
-        </div>
+        </div>-->
         <div class="form-group">
             <label jhiTranslate="diDomApp.hasSkill.skill" for="field_skill">Skill</label>
             <select class="form-control" id="field_skill" name="skill" [(ngModel)]="hasSkill.skill" >

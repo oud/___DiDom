@@ -28,19 +28,19 @@
     <div class="table-responsive" *ngIf="hasSkills">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="diDomApp.hasSkill.user">User</span></th>
-            <th><span jhiTranslate="diDomApp.hasSkill.skill">Skill</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <!--<th jhiSortBy="user.login"><span jhiTranslate="diDomApp.hasSkill.user">User</span> <span class="fa fa-sort"></span></th> -->
+            <th jhiSortBy="skill.skillName"><span jhiTranslate="diDomApp.hasSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let hasSkill of hasSkills ;trackBy: trackId">
                 <td><a [routerLink]="['../has-skill', hasSkill.id ]">{{hasSkill.id}}</a></td>
-                <td>
+                <!--<td>
                     {{hasSkill.user?.login}}
-                </td>
+                </td>-->
                 <td>
                     <div *ngIf="hasSkill.skill">
                         <a [routerLink]="['../skill', hasSkill.skill?.id ]" >{{hasSkill.skill?.skillName}}</a>

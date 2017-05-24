@@ -2,13 +2,17 @@ package com.didom.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.didom.myapp.domain.HasSkill;
-
-import com.didom.myapp.repository.HasSkillRepository;
-import com.didom.myapp.repository.search.HasSkillSearchRepository;
+import com.didom.myapp.service.HasSkillService;
 import com.didom.myapp.web.rest.util.HeaderUtil;
+import com.didom.myapp.web.rest.util.PaginationUtil;
+import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +21,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -33,13 +36,10 @@ public class HasSkillResource {
 
     private static final String ENTITY_NAME = "hasSkill";
         
-    private final HasSkillRepository hasSkillRepository;
+    private final HasSkillService hasSkillService;
 
-    private final HasSkillSearchRepository hasSkillSearchRepository;
-
-    public HasSkillResource(HasSkillRepository hasSkillRepository, HasSkillSearchRepository hasSkillSearchRepository) {
-        this.hasSkillRepository = hasSkillRepository;
-        this.hasSkillSearchRepository = hasSkillSearchRepository;
+    public HasSkillResource(HasSkillService hasSkillService) {
+        this.hasSkillService = hasSkillService;
     }
 
     /**
@@ -56,8 +56,7 @@ public class HasSkillResource {
         if (hasSkill.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new hasSkill cannot already have an ID")).body(null);
         }
-        HasSkill result = hasSkillRepository.save(hasSkill);
-        hasSkillSearchRepository.save(result);
+        HasSkill result = hasSkillService.save(hasSkill);
         return ResponseEntity.created(new URI("/api/has-skills/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -79,8 +78,7 @@ public class HasSkillResource {
         if (hasSkill.getId() == null) {
             return createHasSkill(hasSkill);
         }
-        HasSkill result = hasSkillRepository.save(hasSkill);
-        hasSkillSearchRepository.save(result);
+        HasSkill result = hasSkillService.save(hasSkill);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, hasSkill.getId().toString()))
             .body(result);
@@ -89,14 +87,16 @@ public class HasSkillResource {
     /**
      * GET  /has-skills : get all the hasSkills.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of hasSkills in body
      */
     @GetMapping("/has-skills")
     @Timed
-    public List<HasSkill> getAllHasSkills() {
-        log.debug("REST request to get all HasSkills");
-        List<HasSkill> hasSkills = hasSkillRepository.findAll();
-        return hasSkills;
+    public ResponseEntity<List<HasSkill>> getAllHasSkills(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of HasSkills");
+        Page<HasSkill> page = hasSkillService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/has-skills");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -109,7 +109,7 @@ public class HasSkillResource {
     @Timed
     public ResponseEntity<HasSkill> getHasSkill(@PathVariable Long id) {
         log.debug("REST request to get HasSkill : {}", id);
-        HasSkill hasSkill = hasSkillRepository.findOne(id);
+        HasSkill hasSkill = hasSkillService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(hasSkill));
     }
 
@@ -123,8 +123,7 @@ public class HasSkillResource {
     @Timed
     public ResponseEntity<Void> deleteHasSkill(@PathVariable Long id) {
         log.debug("REST request to delete HasSkill : {}", id);
-        hasSkillRepository.delete(id);
-        hasSkillSearchRepository.delete(id);
+        hasSkillService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -133,15 +132,16 @@ public class HasSkillResource {
      * to the query.
      *
      * @param query the query of the hasSkill search 
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/has-skills")
     @Timed
-    public List<HasSkill> searchHasSkills(@RequestParam String query) {
-        log.debug("REST request to search HasSkills for query {}", query);
-        return StreamSupport
-            .stream(hasSkillSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    public ResponseEntity<List<HasSkill>> searchHasSkills(@RequestParam String query, @ApiParam Pageable pageable) {
+        log.debug("REST request to search for a page of HasSkills for query {}", query);
+        Page<HasSkill> page = hasSkillService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/has-skills");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 

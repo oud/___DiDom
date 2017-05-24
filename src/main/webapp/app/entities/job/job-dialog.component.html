@@ -82,13 +82,13 @@
                 <option [ngValue]="durationOption.id === job.duration?.id ? job.duration : durationOption" *ngFor="let durationOption of durations; trackBy: trackDurationById">{{durationOption.duration}}</option>
             </select>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label jhiTranslate="diDomApp.job.user" for="field_user">User</label>
             <select class="form-control" id="field_user" name="user" [(ngModel)]="job.user" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="userOption.id === job.user?.id ? job.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
-        </div>
+        </div>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

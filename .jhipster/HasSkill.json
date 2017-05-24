@@ -18,6 +18,7 @@
     "changelogDate": "20170523140130",
     "entityTableName": "has_skill",
     "dto": "no",
-    "pagination": "no",
-    "service": "no"
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "searchEngine": "elasticsearch"
 }

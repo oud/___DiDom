@@ -4,6 +4,7 @@ import com.didom.myapp.DiDomApp;
 
 import com.didom.myapp.domain.HasSkill;
 import com.didom.myapp.repository.HasSkillRepository;
+import com.didom.myapp.service.HasSkillService;
 import com.didom.myapp.repository.search.HasSkillSearchRepository;
 import com.didom.myapp.web.rest.errors.ExceptionTranslator;
 
@@ -42,6 +43,9 @@ public class HasSkillResourceIntTest {
     private HasSkillRepository hasSkillRepository;
 
     @Autowired
+    private HasSkillService hasSkillService;
+
+    @Autowired
     private HasSkillSearchRepository hasSkillSearchRepository;
 
     @Autowired
@@ -63,7 +67,7 @@ public class HasSkillResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        HasSkillResource hasSkillResource = new HasSkillResource(hasSkillRepository, hasSkillSearchRepository);
+        HasSkillResource hasSkillResource = new HasSkillResource(hasSkillService);
         this.restHasSkillMockMvc = MockMvcBuilders.standaloneSetup(hasSkillResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -165,8 +169,8 @@ public class HasSkillResourceIntTest {
     @Transactional
     public void updateHasSkill() throws Exception {
         // Initialize the database
-        hasSkillRepository.saveAndFlush(hasSkill);
-        hasSkillSearchRepository.save(hasSkill);
+        hasSkillService.save(hasSkill);
+
         int databaseSizeBeforeUpdate = hasSkillRepository.findAll().size();
 
         // Update the hasSkill
@@ -209,8 +213,8 @@ public class HasSkillResourceIntTest {
     @Transactional
     public void deleteHasSkill() throws Exception {
         // Initialize the database
-        hasSkillRepository.saveAndFlush(hasSkill);
-        hasSkillSearchRepository.save(hasSkill);
+        hasSkillService.save(hasSkill);
+
         int databaseSizeBeforeDelete = hasSkillRepository.findAll().size();
 
         // Get the hasSkill
@@ -231,8 +235,7 @@ public class HasSkillResourceIntTest {
     @Transactional
     public void searchHasSkill() throws Exception {
         // Initialize the database
-        hasSkillRepository.saveAndFlush(hasSkill);
-        hasSkillSearchRepository.save(hasSkill);
+        hasSkillService.save(hasSkill);
 
         // Search the hasSkill
         restHasSkillMockMvc.perform(get("/api/_search/has-skills?query=id:" + hasSkill.getId()))

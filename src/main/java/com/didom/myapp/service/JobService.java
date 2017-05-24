@@ -1,8 +1,11 @@
 package com.didom.myapp.service;
 
 import com.didom.myapp.domain.Job;
+import com.didom.myapp.domain.User;
 import com.didom.myapp.repository.JobRepository;
+import com.didom.myapp.repository.UserRepository;
 import com.didom.myapp.repository.search.JobSearchRepository;
+import com.didom.myapp.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -22,13 +25,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class JobService {
 
     private final Logger log = LoggerFactory.getLogger(JobService.class);
-    
+
     private final JobRepository jobRepository;
+
+    private final UserRepository userRepository;
 
     private final JobSearchRepository jobSearchRepository;
 
-    public JobService(JobRepository jobRepository, JobSearchRepository jobSearchRepository) {
+    public JobService(JobRepository jobRepository, UserRepository userRepository, JobSearchRepository jobSearchRepository) {
         this.jobRepository = jobRepository;
+        this.userRepository = userRepository;
         this.jobSearchRepository = jobSearchRepository;
     }
 
@@ -40,6 +46,8 @@ public class JobService {
      */
     public Job save(Job job) {
         log.debug("Request to save Job : {}", job);
+        Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        if (user.isPresent()) job.setUser(user.get());
         Job result = jobRepository.save(job);
         jobSearchRepository.save(result);
         return result;
@@ -47,7 +55,7 @@ public class JobService {
 
     /**
      *  Get all the jobs.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
