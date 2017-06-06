@@ -4,8 +4,10 @@ import com.didom.myapp.DiDomApp;
 
 import com.didom.myapp.domain.Job;
 import com.didom.myapp.repository.JobRepository;
+import com.didom.myapp.repository.ProposalStatusCatalogRepository;
 import com.didom.myapp.service.JobService;
 import com.didom.myapp.repository.search.JobSearchRepository;
+import com.didom.myapp.service.ProposalService;
 import com.didom.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -78,10 +80,15 @@ public class JobResourceIntTest {
 
     private Job job;
 
+    @Autowired
+    private ProposalService proposalService;
+    @Autowired
+    private ProposalStatusCatalogRepository proposalStatusCatalogRepository;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        JobResource jobResource = new JobResource(jobService);
+        JobResource jobResource = new JobResource(jobService, proposalService, proposalStatusCatalogRepository);
         this.restJobMockMvc = MockMvcBuilders.standaloneSetup(jobResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

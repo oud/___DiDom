@@ -22,7 +22,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ProposalService {
 
     private final Logger log = LoggerFactory.getLogger(ProposalService.class);
-    
+
     private final ProposalRepository proposalRepository;
 
     private final ProposalSearchRepository proposalSearchRepository;
@@ -47,7 +47,7 @@ public class ProposalService {
 
     /**
      *  Get all the proposals.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */

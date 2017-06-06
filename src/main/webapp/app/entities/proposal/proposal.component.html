@@ -32,12 +32,12 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="proposalTime"><span jhiTranslate="diDomApp.proposal.proposalTime">Proposal Time</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="paymentAmount"><span jhiTranslate="diDomApp.proposal.paymentAmount">Payment Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="clientGrade"><span jhiTranslate="diDomApp.proposal.clientGrade">Client Grade</span> <span class="fa fa-sort"></span></th>
+            <!--<th jhiSortBy="clientGrade"><span jhiTranslate="diDomApp.proposal.clientGrade">Client Grade</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="clientComment"><span jhiTranslate="diDomApp.proposal.clientComment">Client Comment</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="freelanceGrade"><span jhiTranslate="diDomApp.proposal.freelanceGrade">Freelance Grade</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="freelanceComment"><span jhiTranslate="diDomApp.proposal.freelanceComment">Freelance Comment</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="freelanceComment"><span jhiTranslate="diDomApp.proposal.freelanceComment">Freelance Comment</span> <span class="fa fa-sort"></span></th>-->
             <th jhiSortBy="job.id"><span jhiTranslate="diDomApp.proposal.job">Job</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="user.login"><span jhiTranslate="diDomApp.proposal.user">User</span> <span class="fa fa-sort"></span></th>
+            <!--<th jhiSortBy="user.login"><span jhiTranslate="diDomApp.proposal.user">User</span> <span class="fa fa-sort"></span></th>-->
             <th jhiSortBy="paymentType.id"><span jhiTranslate="diDomApp.proposal.paymentType">Payment Type</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="currentProposalStatus.statusName"><span jhiTranslate="diDomApp.proposal.currentProposalStatus">Current Proposal Status</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -47,22 +47,21 @@
             <tr *ngFor="let proposal of proposals ;trackBy: trackId">
                 <td><a [routerLink]="['../proposal', proposal.id ]">{{proposal.id}}</a></td>
                 <td>{{proposal.proposalTime | date:'medium'}}</td>
-                <td>{{proposal.paymentAmount}}</td>
-                <td>{{proposal.clientGrade}}</td>
+                <!--<td>{{proposal.clientGrade}}</td>
                 <td>{{proposal.clientComment}}</td>
                 <td>{{proposal.freelanceGrade}}</td>
-                <td>{{proposal.freelanceComment}}</td>
+                <td>{{proposal.freelanceComment}}</td>-->
                 <td>
                     <div *ngIf="proposal.job">
-                        <a [routerLink]="['../job', proposal.job?.id ]" >{{proposal.job?.id}}</a>
+                        <a [routerLink]="['../job', proposal.job?.id ]" >{{proposal.job?.title}}</a>
                     </div>
                 </td>
-                <td>
+                <!--<td>
                     {{proposal.user?.login}}
-                </td>
+                </td>-->
                 <td>
                     <div *ngIf="proposal.paymentType">
-                        <a [routerLink]="['../payment-type', proposal.paymentType?.id ]" >{{proposal.paymentType?.id}}</a>
+                        <a [routerLink]="['../payment-type', proposal.paymentType?.id ]" >{{proposal.paymentType?.typeName}}</a>
                     </div>
                 </td>
                 <td>
