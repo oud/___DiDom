@@ -3,8 +3,7 @@ package com.didom.myapp.web.rest;
 import com.didom.myapp.DiDomApp;
 
 import com.didom.myapp.domain.Job;
-import com.didom.myapp.repository.JobRepository;
-import com.didom.myapp.repository.ProposalStatusCatalogRepository;
+import com.didom.myapp.repository.*;
 import com.didom.myapp.service.JobService;
 import com.didom.myapp.repository.search.JobSearchRepository;
 import com.didom.myapp.service.ProposalService;
@@ -84,11 +83,14 @@ public class JobResourceIntTest {
     private ProposalService proposalService;
     @Autowired
     private ProposalStatusCatalogRepository proposalStatusCatalogRepository;
+    private UserRepository userRepository;
+    private AuthorityRepository authorityRepository;
+    private UserInfoRepository userInfoRepository;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        JobResource jobResource = new JobResource(jobService, proposalService, proposalStatusCatalogRepository);
+        JobResource jobResource = new JobResource(jobService, proposalService, proposalStatusCatalogRepository, userRepository, userInfoRepository, authorityRepository);
         this.restJobMockMvc = MockMvcBuilders.standaloneSetup(jobResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

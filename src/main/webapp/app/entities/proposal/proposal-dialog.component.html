@@ -7,12 +7,12 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!proposal.id">
+        <div class="form-group" [hidden]="!proposal.id" *ngIf="isSaving">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                    [(ngModel)]="proposal.id" readonly />
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label class="form-control-label" jhiTranslate="diDomApp.proposal.proposalTime" for="field_proposalTime">Proposal Time</label>
             <div class="d-flex">
                 <input id="field_proposalTime" type="datetime-local" class="form-control" name="proposalTime" [(ngModel)]="proposal.proposalTime"
@@ -29,7 +29,7 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label class="form-control-label" jhiTranslate="diDomApp.proposal.paymentAmount" for="field_paymentAmount">Payment Amount</label>
             <input type="number" class="form-control" name="paymentAmount" id="field_paymentAmount"
                 [(ngModel)]="proposal.paymentAmount"
@@ -45,46 +45,46 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label class="form-control-label" jhiTranslate="diDomApp.proposal.clientGrade" for="field_clientGrade">Client Grade</label>
             <input type="number" class="form-control" name="clientGrade" id="field_clientGrade"
                 [(ngModel)]="proposal.clientGrade"
              />
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label class="form-control-label" jhiTranslate="diDomApp.proposal.clientComment" for="field_clientComment">Client Comment</label>
             <input type="text" class="form-control" name="clientComment" id="field_clientComment"
                 [(ngModel)]="proposal.clientComment"
              />
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label class="form-control-label" jhiTranslate="diDomApp.proposal.freelanceGrade" for="field_freelanceGrade">Freelance Grade</label>
             <input type="number" class="form-control" name="freelanceGrade" id="field_freelanceGrade"
                 [(ngModel)]="proposal.freelanceGrade"
              />
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label class="form-control-label" jhiTranslate="diDomApp.proposal.freelanceComment" for="field_freelanceComment">Freelance Comment</label>
             <input type="text" class="form-control" name="freelanceComment" id="field_freelanceComment"
                 [(ngModel)]="proposal.freelanceComment"
              />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label jhiTranslate="diDomApp.proposal.job" for="field_job">Job</label>
             <select class="form-control" id="field_job" name="job" [(ngModel)]="proposal.job" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="jobOption.id === proposal.job?.id ? proposal.job : jobOption" *ngFor="let jobOption of jobs; trackBy: trackJobById">{{jobOption.id}}</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label jhiTranslate="diDomApp.proposal.user" for="field_user">User</label>
             <select class="form-control" id="field_user" name="user" [(ngModel)]="proposal.user" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="userOption.id === proposal.user?.id ? proposal.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSaving">
             <label jhiTranslate="diDomApp.proposal.paymentType" for="field_paymentType">Payment Type</label>
             <select class="form-control" id="field_paymentType" name="paymentType" [(ngModel)]="proposal.paymentType" >
                 <option [ngValue]="null"></option>

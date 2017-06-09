@@ -1,9 +1,13 @@
 package com.didom.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.didom.myapp.domain.Job;
-import com.didom.myapp.domain.Proposal;
+import com.didom.myapp.domain.*;
+import com.didom.myapp.domain.enumeration.TypeUser;
+import com.didom.myapp.repository.AuthorityRepository;
 import com.didom.myapp.repository.ProposalStatusCatalogRepository;
+import com.didom.myapp.repository.UserInfoRepository;
+import com.didom.myapp.repository.UserRepository;
+import com.didom.myapp.security.AuthoritiesConstants;
 import com.didom.myapp.service.JobService;
 import com.didom.myapp.service.ProposalService;
 import com.didom.myapp.web.rest.util.HeaderUtil;
@@ -47,10 +51,15 @@ public class JobResource {
 
     private final ProposalStatusCatalogRepository proposalStatusCatalogRepository;
 
-    public JobResource(JobService jobService, ProposalService proposalService, ProposalStatusCatalogRepository proposalStatusCatalogRepository) {
+    private final UserInfoRepository userInfoRepository;
+    private final AuthorityRepository authorityRepository;
+
+    public JobResource(JobService jobService, ProposalService proposalService, ProposalStatusCatalogRepository proposalStatusCatalogRepository, UserRepository userRepository, UserInfoRepository userInfoRepository, AuthorityRepository authorityRepository) {
         this.jobService = jobService;
         this.proposalService = proposalService;
         this.proposalStatusCatalogRepository = proposalStatusCatalogRepository;
+        this.userInfoRepository = userInfoRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     /**
@@ -68,13 +77,20 @@ public class JobResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new job cannot already have an ID")).body(null);
         }
         Job result = jobService.save(job);
-        Proposal proposal = new Proposal();
-        Proposal result1= proposalService.save(proposal
-            .currentProposalStatus(proposalStatusCatalogRepository.findOne((long) 1))
-            .proposalTime(new Date().toInstant().atZone(ZoneId.systemDefault()))
-            .job(job)
-            .paymentAmount(job.getPaymentAmont())
-            .paymentType(job.getPaymentType()));
+        List<UserInfo> userList = userInfoRepository.findAll();
+        for (UserInfo userInfo : userList){
+            //Authority authority = authorityRepository.findOne(AuthoritiesConstants.SEEKER);
+            if(userInfo.getUserType().equals(TypeUser.SEEKER) && userInfo.getUser().getActivated()== true){
+                Proposal proposal = new Proposal();
+                Proposal result1= proposalService.save(proposal
+                    .currentProposalStatus(proposalStatusCatalogRepository.findOne((long) 1))
+                    .proposalTime(new Date().toInstant().atZone(ZoneId.systemDefault()))
+                    .job(job)
+                    .paymentAmount(job.getPaymentAmont())
+                    .paymentType(job.getPaymentType())
+                    .user(userInfo.getUser()));
+            }
+        }
         return ResponseEntity.created(new URI("/api/jobs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
